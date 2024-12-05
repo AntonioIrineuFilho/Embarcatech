@@ -77,7 +77,14 @@ forma eficiente e segura com o hardware.
 - Modulos de software que encapsulam componentes de hardware e realizam intermediação entre comandos de alto nível da camada de aplicação e o hardware.
 ### Núcleo operacional
 - Kernel: Gerencia os recursos do sistema, como CPU, memória e dispositivos de entrada/saída.
-- RTOS(Sistema Operacional em Tempo Real):  
+- RTOS(Sistema Operacional em Tempo Real): Tipo de sistema conveniente para SE que funcionem em hard real time e necessitem de controle em tempo real,
+uma vez que o RTOS é responsável por garantir que as tarefas sejam executadas dentro de prazos estritos.
+### Protocolos e serviços
+- Bibliotecas que implementam os detalhes de operação de diversos protocolos de comunicação, como TCP-IP e etc, necessário pois as informações que trafegam entre os canais de comunicação
+ocorrem por meio de um protocolo padronizado.
+- Os desenvolvedores normalmente utilizam protocolos e bibliotecas de terceiros, focando apenas na lógica de implementação.
 
 ## Aplicação
-- Realiza as funções que o sistema embarcado foi programado para realizar.
+- Onde a funcionalidade especifica de um sistema embarcado é implementada.
+- Nessa camada o código é escrito para controlar e gerenciar as operações especificas do sistema, como a interação com sensores, a comunicação com outros dispostivos, processamento de dados e
+interface do usuário(se houver).
