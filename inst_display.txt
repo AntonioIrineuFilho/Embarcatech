@@ -1,0 +1,5 @@
+criar um novo projeto c/c++
+
+marcar as interfaces PIO/I2C(ou todas logo)
+
+adicionar no novo CMakeList.txt -> add_executable(display_oled display_oled.c inc/ssd1306_i2c.c)
