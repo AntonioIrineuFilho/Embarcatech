@@ -54,6 +54,26 @@ Sw -> GPIO 22
 
 ## Configurar Visual Studio Code
 
-### 
+### Extensões
 
+C/C++ Compile and Run
 
+C/C++ Extension Pack
+
+Raspberry Pi Pico
+
+### Driver do MCU
+
+Instalar Driver Zadig(já instalado)
+
+## Criação do Projeto
+
+1º -> Criar novo projeto C/C++
+
+2º -> Nome do projeto sem caracteres especiais ou espaços, além de começar sempre com letras
+
+3º -> Em "Stdio support" sempre marcar "Console over USB"
+
+4º -> Compilar projeto e rodar com "Run Project(USB)"
+
+5º -> Antes de rodar, a placa deve estar em modo bootsel, para isso, basta conectar a placa via USB e rodar o comando "picotool reboot -f -u" no terminal(dar enter duas vezes caso o terminal já esteja rodando outro processo)
