@@ -12,7 +12,7 @@
 
 #define BTN_A_PIN 5
 
-int A_state = 0;    //Botao A está pressionado?
+int A_state = 0;
 
 ssd1306_t disp;
 
@@ -50,14 +50,6 @@ void print_texto(char *msg, int linha, bool q){
     }
     
 }
-void print_linha(int x1, int y1, int x2, int y2){
-    ssd1306_draw_line(&disp, x1, y1, x2, y2);
-    ssd1306_show(&disp);    
-}
-void print_retangulo(int x1, int y1, int x2, int y2){
-    ssd1306_draw_empty_square(&disp,x1,y1,x2,y2);
-    ssd1306_show(&disp);
-}
 
 void SinalAberto(){
     gpio_put(LED_R_PIN, 0);
@@ -90,17 +82,21 @@ int WaitWithRead(int timeMS){
 
 
 int main() {
+
     inicializa();
     char *text = "";
+
     while(true) {
+        
        SinalFechado();
        text = "SINAL FECHADO";
        print_texto(text,20, true);
        text = "- AGUARDE";
        print_texto(text,40, false);
-       A_state = WaitWithRead(8000);   //espera com leitura do botäo
+       A_state = WaitWithRead(8000); //espera com leitura do botäo
        //sleep_ms(8000);
-       if(A_state) {  //ALGUEM APERTOU O BOTAO - SAI DO SEMAFORO NORMAL
+       if(A_state) { 
+
         SinalAtencao();
         text = "SINAL DE ATENÇÃO";
         print_texto(text, 20, true);
@@ -109,25 +105,14 @@ int main() {
         sleep_ms(5000);
 
         SinalAberto();
-        text = "SINAL ABERTO - ATRAVESSAR COM CUIDADO";
+        text = "SINAL ABERTO";
         print_texto(text, 20, true);
-        text = " - ATRAVESSAR COM CUIDADO";
+        text = "- ATRAVESSAR COM CUIDADO";
         print_texto(text, 40, true);
-        sleep_ms(10000);
-    //    text = "Antônio";
-    //    print_texto(text);
-    //    print_linha(0, 10, 127, 10);
-    //    sleep_ms(2000);
-    //    text = "Gustavo";
-    //    print_texto(text);
-    //    print_linha(0, 10, 127, 10);
-    //    print_linha(0, 55, 127, 55);
-    //    sleep_ms(2000);
-    //    text = "Clara";
-    //    print_texto(text);
-    //    print_retangulo(2,2,120,55);
-    //    sleep_ms(3000);     
+        sleep_ms(10000); 
+
         }
     }
+
     return 0;
 }
