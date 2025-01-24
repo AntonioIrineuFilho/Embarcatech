@@ -28,36 +28,36 @@ set(PICO_BOARD pico_w CACHE STRING "Board type")
 # Pull in Raspberry Pi Pico SDK (must be before project)
 include(pico_sdk_import.cmake)
 
-project(teste C CXX ASM)
+project(semaforo-display C CXX ASM)
 
 # Initialise the Raspberry Pi Pico SDK
 pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(teste teste.c ssd1306.c)
+add_executable(semaforo-display semaforo-display.c ssd1306.c)
 
-pico_set_program_name(teste "teste")
-pico_set_program_version(teste "0.1")
+pico_set_program_name(semaforo-display "semaforo-display")
+pico_set_program_version(semaforo-display "0.1")
 
 # Modify the below lines to enable/disable output over UART/USB
-pico_enable_stdio_uart(teste 0)
-pico_enable_stdio_usb(teste 1)
+pico_enable_stdio_uart(semaforo-display 0)
+pico_enable_stdio_usb(semaforo-display 1)
 
 # Add the standard library to the build
-target_link_libraries(teste
+target_link_libraries(semaforo-display
         pico_stdlib)
 
 # Add the standard include files to the build
-target_include_directories(teste PUBLIC
+target_include_directories(semaforo-display PUBLIC
         ${CMAKE_CURRENT_LIST_DIR}
 )
 
 # Add any user requested libraries
-target_link_libraries(teste 
+target_link_libraries(semaforo-display 
         hardware_i2c
         
         )
 
-pico_add_extra_outputs(teste)
+pico_add_extra_outputs(semaforo-display)
 

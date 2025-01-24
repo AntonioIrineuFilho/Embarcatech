@@ -9,14 +9,12 @@
 #define LED_R_PIN 13
 #define LED_G_PIN 11
 #define LED_B_PIN 12
-
 #define BTN_A_PIN 5
 
+ssd1306_t display;
 int A_state = 0;
 
-ssd1306_t disp;
-
-void inicializa(){
+void setup() {
 
     stdio_init_all();
     i2c_init(I2C_PORT, 400*1000);// I2C Inicialização. Usando 400Khz.
@@ -24,8 +22,9 @@ void inicializa(){
     gpio_set_function(PINO_SDA, GPIO_FUNC_I2C);
     gpio_pull_up(PINO_SCL);
     gpio_pull_up(PINO_SDA);
-    disp.external_vcc=false;
-    ssd1306_init(&disp, 128, 64, 0x3C, I2C_PORT);
+    display.external_vcc=false;
+    ssd1306_init(&display, 128, 64, 0x3C, I2C_PORT);
+
     // INICIANDO LEDS
     gpio_init(LED_R_PIN);
     gpio_set_dir(LED_R_PIN, GPIO_OUT);
@@ -41,14 +40,13 @@ void inicializa(){
 
 }
 
-void print_texto(char *msg, int linha, bool q){
-    if(q){
-    ssd1306_clear(&disp);//Limpa a tela    
-    } else {
-    ssd1306_draw_string(&disp, 8, linha, 1, msg);//desenha o texto
-    ssd1306_show(&disp);//apresenta no Oled
+void printTexto(char *msg, int linha) {
+    ssd1306_draw_string(&display, 8, linha, 1, msg); //  desenha o texto
+    ssd1306_show(&display); // mostra no display
     }
-    
+
+void limparTexto() {
+    ssd1306_clear(&display);
 }
 
 void SinalAberto(){
@@ -83,36 +81,39 @@ int WaitWithRead(int timeMS){
 
 int main() {
 
-    inicializa();
+    setup();
     char *text = "";
 
     while(true) {
         
        SinalFechado();
        text = "SINAL FECHADO";
-       print_texto(text,20, true);
+       printTexto(text, 10);
        text = "- AGUARDE";
-       print_texto(text,40, false);
-       A_state = WaitWithRead(8000); //espera com leitura do botäo
-       //sleep_ms(8000);
-       if(A_state) { 
-
+       printTexto(text, 30);
+       A_state = WaitWithRead(8000); // espera com leitura do botäo
+       // sleep_ms(8000);
+       if (A_state) { 
+        limparTexto();
         SinalAtencao();
-        text = "SINAL DE ATENÇÃO";
-        print_texto(text, 20, true);
+        text = "SINAL DE ATENCAO";
+        printTexto(text, 10);
         text = "- PREPARE-SE";
-        print_texto(text, 40, true);
+        printTexto(text, 30);
         sleep_ms(5000);
-
+        limparTexto();
         SinalAberto();
         text = "SINAL ABERTO";
-        print_texto(text, 20, true);
-        text = "- ATRAVESSAR COM CUIDADO";
-        print_texto(text, 40, true);
+        printTexto(text, 10);
+        text = "- ATRAVESSAR";
+        printTexto(text, 30);
+        text = "COM CUIDADO";
+        printTexto(text, 50);
         sleep_ms(10000); 
-
+        limparTexto();
         }
     }
 
     return 0;
 }
+
