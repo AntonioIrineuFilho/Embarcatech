@@ -13,6 +13,7 @@
 
 ssd1306_t display;
 int A_state = 0;
+char *text = "";
 
 void setup() {
 
@@ -52,19 +53,33 @@ void limparTexto() {
 void SinalAberto(){
     gpio_put(LED_R_PIN, 0);
     gpio_put(LED_G_PIN, 1);
-    gpio_put(LED_B_PIN, 0);   
+    gpio_put(LED_B_PIN, 0);  
+    text = "SINAL ABERTO";
+    printTexto(text, 10);
+    text = "- ATRAVESSAR";
+    printTexto(text, 30);
+    text = "COM CUIDADO";
+    printTexto(text, 50); 
 }
 
 void SinalAtencao(){
     gpio_put(LED_R_PIN, 1);
     gpio_put(LED_G_PIN, 1);
     gpio_put(LED_B_PIN, 0);
+    text = "SINAL DE ATENCAO";
+    printTexto(text, 10);
+    text = "- PREPARE-SE";
+    printTexto(text, 30);
 }
 
 void SinalFechado(){
     gpio_put(LED_R_PIN, 1);
     gpio_put(LED_G_PIN, 0);
     gpio_put(LED_B_PIN, 0);
+    text = "SINAL FECHADO";
+    printTexto(text, 10);
+    text = "- AGUARDE";
+    printTexto(text, 30);
 }
 
 int WaitWithRead(int timeMS){
@@ -82,33 +97,18 @@ int WaitWithRead(int timeMS){
 int main() {
 
     setup();
-    char *text = "";
 
     while(true) {
         
        SinalFechado();
-       text = "SINAL FECHADO";
-       printTexto(text, 10);
-       text = "- AGUARDE";
-       printTexto(text, 30);
        A_state = WaitWithRead(8000); // espera com leitura do botäo
        // sleep_ms(8000);
        if (A_state) { 
         limparTexto();
         SinalAtencao();
-        text = "SINAL DE ATENCAO";
-        printTexto(text, 10);
-        text = "- PREPARE-SE";
-        printTexto(text, 30);
         sleep_ms(5000);
         limparTexto();
         SinalAberto();
-        text = "SINAL ABERTO";
-        printTexto(text, 10);
-        text = "- ATRAVESSAR";
-        printTexto(text, 30);
-        text = "COM CUIDADO";
-        printTexto(text, 50);
         sleep_ms(10000); 
         limparTexto();
         }
