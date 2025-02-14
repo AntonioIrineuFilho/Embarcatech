@@ -1,0 +1,24 @@
+// FUNÇÕES DO CÓDIGO
+
+setup OLED -> OK
+setup RGB -> OK
+setup BUZZER -> OK
+setup conexão com WIFI -> OK
+setup geral -> OK
+simulação de leitura do sensor de umidade com randint -> OK
+conexão HTTP com o ThingSpeak -> OK
+conexão TCP -> OK
+converter endereço escrito em IP(DNS) -> OK
+toque do BUZZER -> OK
+função para o led ficar vermelho -> OK
+função para o led ficar amarelo -> OK
+função para o led ficar verde -> OK
+função para desenhar no display -> OK
+função que verifica o randint gerado e dispara o output de cada condição(OLED + RGB + BUZZER) -> OK
+
+// TESTES
+
+testar conexão com WIFI
+testar conexão com ThingSpeak
+testar rotina principal da placa
+tester temporização com os temporizadores requeridos(aula 6.5)
